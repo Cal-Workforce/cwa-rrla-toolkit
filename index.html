@@ -6,50 +6,68 @@
 <title>RR/LA Toolkit Hub — California Workforce Association</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;0,9..40,800;1,9..40,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="icon" href="https://calworkforce.org/assets/favicon.svg">
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
 
   :root {
-    --cwa-navy:    #0D2545;
-    --cwa-blue:    #1A6FD4;
-    --cwa-gold:    #F5A623;
-    --cwa-coral:   #FF5C38;
-    --cwa-gray:    #6B7280;
-    --cwa-light:   #F7F5F0;
+    /* ── CWA brand tokens (calworkforce.org relaunch) ── */
+    --coral:       #E27A50;
+    --coral-dark:  #C9623B;
+    --coral-tint:  #F6E4DB;
+    --coral-wash:  #FBF0EA;
+    --navy:        #1A375D;
+    --navy-deep:   #122842;
+    --navy-tint:   #3B5578;
+    --navy-wash:   #EAEEF3;
+    --ground:      #FAF7F3;
     --white:       #FFFFFF;
-    --border:      #DDD8CE;
-    --ink:         #0D1F38;
-    --ink-soft:    #3D4D63;
-    --muted:       #7A8499;
-    --light-navy:  #E8EEF8;
-    --light-blue:  #E3EEFB;
-    --light-gold:  #FEF3D7;
-    --light-green: #DFF5EA;
-    --light-amber: #FDF0E4;
-    --light-teal:  #DDF5F5;
-    --light-purple:#EEE8F8;
-    --light-coral: #FFE9E4;
-    --green:       #1A7A40;
-    --amber:       #B05C08;
-    --teal:        #157A7A;
-    --purple:      #5B2D8E;
-    --coral:       #E84528;
+    --muted:       #5B6A7D;
+    --line:        #E7DFD6;
+    --ease:        cubic-bezier(.22,.61,.36,1);
 
-    /* Shadows */
-    --shadow-sm:   0 2px 8px rgba(13,37,69,0.07);
-    --shadow-md:   0 6px 24px rgba(13,37,69,0.10);
-    --shadow-lg:   0 16px 48px rgba(13,37,69,0.14);
-    --shadow-hover: 0 12px 36px rgba(13,37,69,0.15);
+    /* ── Legacy variable names mapped onto the CWA system ──
+       (keeps every existing rule working; the palette now
+        resolves to warm cream + navy + a single coral accent) */
+    --cwa-navy:    #1A375D;
+    --cwa-blue:    #C9623B;   /* links / active / eyebrows → coral-dark */
+    --cwa-gold:    #E27A50;   /* badges → coral */
+    --cwa-coral:   #E27A50;
+    --cwa-gray:    #5B6A7D;
+    --cwa-light:   #FAF7F3;
+    --border:      #E7DFD6;
+    --ink:         #1A375D;
+    --ink-soft:    #3B5578;
+    --light-navy:  #EAEEF3;
+    --light-blue:  #EAEEF3;
+    --light-gold:  #F6E4DB;
+    --light-green: #EAEEF3;
+    --light-amber: #FBF0EA;
+    --light-teal:  #EAEEF3;
+    --light-purple:#EAEEF3;
+    --light-coral: #FBF0EA;
+    /* category hues collapsed to navy + coral (single-accent system) */
+    --green:       #3B5578;
+    --amber:       #C9623B;
+    --teal:        #3B5578;
+    --purple:      #3B5578;
+
+    /* Shadows — soft, navy-tinted, never harsh black */
+    --shadow-sm:   0 8px 24px -16px rgba(26,55,93,0.35);
+    --shadow-md:   0 18px 48px -24px rgba(26,55,93,0.28);
+    --shadow-lg:   0 24px 60px -28px rgba(26,55,93,0.30);
+    --shadow-hover:0 18px 48px -24px rgba(26,55,93,0.32);
   }
 
   body {
-    font-family: 'DM Sans', sans-serif;
-    background: var(--cwa-light);
-    color: var(--ink);
-    line-height: 1.6;
+    font-family: 'Sora', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+    background: var(--ground);
+    color: var(--muted);
+    font-size: 18px;
+    line-height: 1.65;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
@@ -101,7 +119,7 @@
     padding: 0 40px; max-width: 1200px; margin: 0 auto;
   }
   .site-nav-link {
-    font-family: 'DM Sans', sans-serif;
+    font-family: 'Sora', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
     font-size: 13px; font-weight: 600; color: var(--muted);
     padding: 11px 15px; cursor: pointer; background: none;
     border: none; border-bottom: 3px solid transparent;
@@ -135,7 +153,7 @@
   }
   .footer-nav { display: flex; flex-direction: column; gap: 10px; }
   .footer-nav-link {
-    font-family: 'DM Sans', sans-serif;
+    font-family: 'Sora', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
     font-size: 14px; font-weight: 500; color: rgba(255,255,255,0.7);
     cursor: pointer; background: none; border: none; text-align: left; padding: 0;
     transition: color 0.15s;
@@ -146,7 +164,7 @@
     padding: 12px 22px; border-radius: 100px;
     border: 1.5px solid rgba(255,255,255,0.25);
     color: var(--white); font-size: 14px; font-weight: 600;
-    cursor: pointer; background: none; font-family: 'DM Sans', sans-serif;
+    cursor: pointer; background: none; font-family: 'Sora', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
     transition: background 0.15s, border-color 0.15s; white-space: nowrap;
   }
   .footer-contact-btn:hover { background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.5); }
@@ -162,7 +180,7 @@
   .btn-primary {
     display: inline-flex; align-items: center; gap: 8px;
     background: var(--cwa-navy); color: var(--white);
-    font-family: 'DM Sans', sans-serif;
+    font-family: 'Sora', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
     font-size: 15px; font-weight: 700; padding: 15px 32px;
     border-radius: 100px; cursor: pointer; border: none;
     text-decoration: none;
@@ -178,7 +196,7 @@
   .btn-secondary {
     display: inline-flex; align-items: center; gap: 8px;
     background: transparent; color: var(--cwa-navy);
-    font-family: 'DM Sans', sans-serif;
+    font-family: 'Sora', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
     font-size: 15px; font-weight: 700; padding: 13px 30px;
     border-radius: 100px; cursor: pointer;
     border: 2px solid var(--cwa-navy); text-decoration: none;
@@ -193,7 +211,7 @@
     display: inline-flex; align-items: center; gap: 6px;
     font-size: 13px; font-weight: 600; color: var(--muted);
     cursor: pointer; background: none; border: none;
-    font-family: 'DM Sans', sans-serif; margin-bottom: 40px; padding: 0;
+    font-family: 'Sora', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif; margin-bottom: 40px; padding: 0;
   }
   .back-btn:hover { color: var(--cwa-blue); }
 
@@ -599,7 +617,7 @@
   .sidebar-back {
     display: flex; align-items: center; gap: 6px; margin-bottom: 20px;
     font-size: 12px; font-weight: 600; color: var(--muted); cursor: pointer;
-    background: none; border: none; font-family: 'DM Sans', sans-serif; padding: 0;
+    background: none; border: none; font-family: 'Sora', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif; padding: 0;
   }
   .sidebar-back:hover { color: var(--cwa-blue); }
   .sidebar-label {
@@ -710,12 +728,12 @@
     line-height: 1.7; position: relative; z-index: 1;
   }
   /* Per-strategy hero accent tints */
-  #page-strategy-1 .detail-hero { background: linear-gradient(145deg, #0D2545 0%, #1A2F5A 60%, #1B3578 100%); }
-  #page-strategy-2 .detail-hero { background: linear-gradient(145deg, #0D2545 0%, #0D3560 60%, #12456E 100%); }
-  #page-strategy-3 .detail-hero { background: linear-gradient(145deg, #1A1030 0%, #2D1F5A 60%, #3B2470 100%); }
-  #page-strategy-4 .detail-hero { background: linear-gradient(145deg, #0A2B1A 0%, #0D3B25 60%, #144E30 100%); }
-  #page-strategy-5 .detail-hero { background: linear-gradient(145deg, #2B1A05 0%, #3D2810 60%, #4A340F 100%); }
-  #page-strategy-6 .detail-hero { background: linear-gradient(145deg, #0A1E35 0%, #0D2E50 60%, #0E3A60 100%); }
+  #page-strategy-1 .detail-hero,
+  #page-strategy-2 .detail-hero,
+  #page-strategy-3 .detail-hero,
+  #page-strategy-4 .detail-hero,
+  #page-strategy-5 .detail-hero,
+  #page-strategy-6 .detail-hero { background: linear-gradient(150deg, var(--navy) 0%, var(--navy-deep) 100%); }
 
   /* Detail content cards */
   .detail-card {
@@ -1047,7 +1065,7 @@
     font-size: 200px; font-weight: 900;
     color: rgba(255,255,255,0.04);
     line-height: 1; pointer-events: none;
-    font-family: 'DM Sans', sans-serif;
+    font-family: 'Sora', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
   }
   .ninety-badge {
     display: inline-block;
@@ -1167,7 +1185,7 @@
     display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 28px;
   }
   .community-filter {
-    font-family: 'DM Sans', sans-serif;
+    font-family: 'Sora', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
     font-size: 13px; font-weight: 600; padding: 7px 16px;
     border-radius: 100px; border: 1.5px solid var(--border);
     background: var(--white); color: var(--muted); cursor: pointer;
@@ -1235,7 +1253,7 @@
   .reply-input-section { margin-top: 20px; }
   .reply-textarea {
     width: 100%; padding: 12px 16px; border: 1.5px solid var(--border); border-radius: 8px;
-    font-family: 'DM Sans', sans-serif; font-size: 14px; resize: vertical; min-height: 80px;
+    font-family: 'Sora', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif; font-size: 14px; resize: vertical; min-height: 80px;
     outline: none; transition: border-color 0.15s; color: var(--ink);
   }
   .reply-textarea:focus { border-color: var(--cwa-blue); }
@@ -1268,7 +1286,7 @@
   .cm-label { display: block; font-size: 13px; font-weight: 700; color: var(--ink-soft); margin-bottom: 6px; }
   .cm-input, .cm-select, .cm-textarea {
     width: 100%; padding: 11px 14px; border: 1.5px solid var(--border); border-radius: 8px;
-    font-family: 'DM Sans', sans-serif; font-size: 14px; outline: none; color: var(--ink);
+    font-family: 'Sora', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif; font-size: 14px; outline: none; color: var(--ink);
     transition: border-color 0.15s; background: var(--white);
   }
   .cm-input:focus, .cm-select:focus, .cm-textarea:focus { border-color: var(--cwa-blue); }
@@ -1279,7 +1297,7 @@
   .cm-tabs { display: flex; gap: 4px; margin-bottom: 24px; background: var(--cwa-light); border-radius: 8px; padding: 4px; }
   .cm-tab {
     flex: 1; padding: 9px; border-radius: 6px; border: none; cursor: pointer;
-    font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 600;
+    font-family: 'Sora', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif; font-size: 13px; font-weight: 600;
     background: transparent; color: var(--muted); transition: all 0.15s;
   }
   .cm-tab.active { background: var(--white); color: var(--cwa-navy); box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
@@ -1288,7 +1306,7 @@
   .btn-sm {
     display: inline-flex; align-items: center; gap: 6px;
     padding: 9px 20px; border-radius: 100px;
-    font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 700;
+    font-family: 'Sora', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif; font-size: 13px; font-weight: 700;
     cursor: pointer; border: none; transition: all 0.15s; white-space: nowrap;
   }
   .btn-sm-primary { background: var(--cwa-navy); color: var(--white); }
@@ -1445,16 +1463,16 @@
   #scenario-table tbody tr:nth-child(even) { background: #F7F9FC; }
   #scenario-table tbody td { padding: 9px 14px; text-align: center; border-bottom: 1px solid var(--border); }
   #scenario-table tbody td:first-child { text-align: left; font-weight: 600; color: var(--cwa-navy); }
-  .scenario-highlight { background: rgba(255,92,56,.08) !important; font-weight: 700; color: var(--cwa-coral); }
+  .scenario-highlight { background: rgba(226,122,80,.08) !important; font-weight: 700; color: var(--cwa-coral); }
 
   /* ── Shared styles for guide / fillable tool pages ── */
   .tool-btn-pdf {
     background: var(--cwa-coral); color: #fff; border: none; border-radius: 10px;
     padding: 12px 24px; font-size: 14px; font-weight: 700; cursor: pointer;
     font-family: inherit; display: inline-flex; align-items: center; gap: 8px;
-    box-shadow: 0 4px 12px rgba(255,92,56,.3); transition: transform .15s, box-shadow .15s;
+    box-shadow: 0 4px 12px rgba(226,122,80,.3); transition: transform .15s, box-shadow .15s;
   }
-  .tool-btn-pdf:hover { transform: translateY(-2px); box-shadow: 0 6px 16px rgba(255,92,56,.4); }
+  .tool-btn-pdf:hover { transform: translateY(-2px); box-shadow: 0 6px 16px rgba(226,122,80,.4); }
   .guide-card {
     background: #fff; border: 1px solid var(--border); border-radius: 14px;
     padding: 28px 32px; margin-bottom: 20px;
@@ -1492,6 +1510,86 @@
     .fill-input, .fill-textarea { border: none !important; border-bottom: 1px solid #999 !important; border-radius: 0 !important; padding-left: 0 !important; }
     a[href]:after { content: ""; }
     .page-h1 { font-size: 30px !important; }
+  }
+
+  /* ═══════════════════════════════════════════════════════════════
+     CWA BRAND SYSTEM — relaunch overrides (calworkforce.org)
+     Warm cream canvas · navy authority · one coral accent · Sora
+  ═══════════════════════════════════════════════════════════════ */
+
+  /* Headings: navy, tight tracking. Body: muted on ground. */
+  h1, h2, h3, h4 { color: var(--navy); letter-spacing: -0.02em; }
+  a { color: var(--coral-dark); }
+
+  /* Signature utility classes from the system */
+  .eyebrow { font-size: .78rem; font-weight: 600; letter-spacing: .18em;
+    text-transform: uppercase; color: var(--coral-dark); }
+  .hl { color: var(--coral); }
+  .callout { background: var(--coral-wash); border-left: 3px solid var(--coral);
+    border-radius: 0 12px 12px 0; padding: 16px 18px; color: var(--navy-tint); }
+
+  /* Heading highlight spans → coral (was italic blue) */
+  .landing-headline em, .page-h1 em, .teaser-h2 em, .detail-hero h1 em {
+    color: var(--coral); font-style: normal; }
+
+  /* Primary button → coral fill, pill, arrow nudges on hover */
+  .btn-primary { background: var(--coral); color: #fff;
+    box-shadow: 0 12px 30px -12px rgba(226,122,80,.6); }
+  .btn-primary:hover { background: var(--coral-dark); transform: translateY(-2px);
+    box-shadow: 0 16px 34px -12px rgba(226,122,80,.55); }
+  .btn-primary svg, .btn-primary .arrow { transition: transform .2s var(--ease); }
+  .btn-primary:hover svg, .btn-primary:hover .arrow { transform: translateX(3px); }
+  /* Secondary/ghost → navy text, line border, coral on hover */
+  .btn-secondary:hover { background: transparent; color: var(--coral-dark);
+    border-color: var(--coral); box-shadow: none; transform: translateY(-2px); }
+
+  /* Visible focus: 3px coral outline, offset */
+  *:focus-visible { outline: 3px solid var(--coral); outline-offset: 3px; border-radius: 8px; }
+
+  /* Dark feature sections → unified navy-deep with coral glow */
+  .detail-hero, .auth-visual, .auth-framework, .sp-visual-card {
+    background: linear-gradient(150deg, var(--navy) 0%, var(--navy-deep) 100%) !important;
+    border-radius: 28px; }
+  .detail-hero::before, .auth-visual::before, .detail-hero::after, .auth-visual::after {
+    background: radial-gradient(circle, rgba(226,122,80,.16), transparent 66%) !important; }
+
+  /* Footer → solid navy-deep, coral CWA wordmark */
+  .site-footer { background: var(--navy-deep) !important; }
+  .footer-brand-name { color: var(--coral); }
+
+  /* Numbered-step badges, dots & bars → coral accent */
+  .step-num, .step-section-badge, .sp-step-dot { background: var(--coral) !important; }
+  .impl-step { border-left-color: var(--coral) !important; }
+  .step-tips li { border-left-color: var(--coral) !important; }
+
+  /* Checklist check → coral (per system) */
+  .check-dot { background: var(--coral-wash); color: var(--coral-dark); }
+
+  /* Eyebrow / badge pills that were gold → coral */
+  .landing-eyebrow, .detail-hero-eyebrow, .header-badge, .ninety-badge {
+    background: var(--coral) !important; color: #fff !important;
+    box-shadow: 0 3px 12px rgba(226,122,80,.35) !important; }
+  .auth-visual-label, .auth-pillar-badge { color: var(--coral) !important; }
+
+  /* Soft interactive washes → brand neutrals */
+  .home-strategy-item:hover { background: var(--coral-wash) !important; }
+  .resource-card:hover { border-color: var(--coral-tint) !important; }
+  .sidebar-nav-item:hover { background: var(--navy-wash) !important; color: var(--coral-dark) !important; }
+  #scenario-table tbody tr:nth-child(even) { background: var(--navy-wash) !important; }
+  .ph-title { color: var(--coral-dark); }
+
+  /* Worksheet fields → ground fill, coral focus ring */
+  .fill-input, .fill-textarea, .emp-input {
+    background: var(--ground); border-color: var(--line); border-radius: 12px; }
+  .fill-input:focus, .fill-textarea:focus, .emp-input:focus {
+    border-color: var(--coral) !important; box-shadow: 0 0 0 3px var(--coral-wash); }
+
+  /* Callout / guide boxes → coral-wash + coral rule */
+  .guide-callout, .landing-callout { background: var(--coral-wash) !important;
+    border-left-color: var(--coral) !important; }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { animation: none !important; transition: none !important; }
   }
 </style>
 </head>
@@ -2327,7 +2425,7 @@
           </div>
 
           <!-- Attribution notice -->
-          <div style="background:#FFFBF0; border:1px solid #F0C040; border-radius:10px; padding:14px 18px; margin-bottom:22px; font-size:12.5px; color:#6B4F00; line-height:1.6;">
+          <div style="background:var(--coral-wash); border-left:3px solid var(--coral); border-radius:0 12px 12px 0; padding:14px 18px; margin-bottom:22px; font-size:12.5px; color:var(--navy-tint); line-height:1.6;">
             <strong>Attribution:</strong> The Next Gen Sector Partnerships model and materials are free for use with attribution. Per Formation's Terms of Use, full attribution via the intact Next Gen name and logo must be given on all materials used and shared. Tools and materials may not be used for fee-for-service consulting or training without the express permission of Formation.
           </div>
 
@@ -4006,37 +4104,37 @@ if (document.readyState === 'loading') {
 
       <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin-bottom:24px;">
         <div style="background:rgba(255,255,255,.08); border-radius:10px; padding:20px;">
-          <div style="font-size:11px; font-weight:700; color:#AABBCC; text-transform:uppercase; letter-spacing:.06em; margin-bottom:8px;">Combined Allocation</div>
+          <div style="font-size:11px; font-weight:700; color:rgba(255,255,255,.72); text-transform:uppercase; letter-spacing:.06em; margin-bottom:8px;">Combined Allocation</div>
           <div id="res-combined" style="font-size:28px; font-weight:800; color:#fff;">—</div>
-          <div style="font-size:12px; color:#AABBCC; margin-top:4px;">Adult + Dislocated Worker</div>
+          <div style="font-size:12px; color:rgba(255,255,255,.72); margin-top:4px;">Adult + Dislocated Worker</div>
         </div>
-        <div style="background:rgba(255,92,56,.15); border:1px solid rgba(255,92,56,.3); border-radius:10px; padding:20px;">
-          <div style="font-size:11px; font-weight:700; color:#FF8C72; text-transform:uppercase; letter-spacing:.06em; margin-bottom:8px;">Maximum IWT Ceiling</div>
-          <div id="res-ceiling" style="font-size:28px; font-weight:800; color:#FF5C38;">—</div>
-          <div style="font-size:12px; color:#FF8C72; margin-top:4px;">20% of combined (§ 134(d)(4))</div>
+        <div style="background:rgba(226,122,80,.15); border:1px solid rgba(226,122,80,.3); border-radius:10px; padding:20px;">
+          <div style="font-size:11px; font-weight:700; color:#E27A50; text-transform:uppercase; letter-spacing:.06em; margin-bottom:8px;">Maximum IWT Ceiling</div>
+          <div id="res-ceiling" style="font-size:28px; font-weight:800; color:#E27A50;">—</div>
+          <div style="font-size:12px; color:#E27A50; margin-top:4px;">20% of combined (§ 134(d)(4))</div>
         </div>
         <div style="background:rgba(255,255,255,.08); border-radius:10px; padding:20px;">
-          <div style="font-size:11px; font-weight:700; color:#AABBCC; text-transform:uppercase; letter-spacing:.06em; margin-bottom:8px;">Net Available (after admin)</div>
-          <div id="res-net" style="font-size:28px; font-weight:800; color:#6EE7C7;">—</div>
-          <div id="res-net-label" style="font-size:12px; color:#AABBCC; margin-top:4px;">After admin reserve</div>
+          <div style="font-size:11px; font-weight:700; color:rgba(255,255,255,.72); text-transform:uppercase; letter-spacing:.06em; margin-bottom:8px;">Net Available (after admin)</div>
+          <div id="res-net" style="font-size:28px; font-weight:800; color:#E27A50;">—</div>
+          <div id="res-net-label" style="font-size:12px; color:rgba(255,255,255,.72); margin-top:4px;">After admin reserve</div>
         </div>
       </div>
 
       <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:16px;">
         <div style="background:rgba(255,255,255,.08); border-radius:10px; padding:20px;">
-          <div style="font-size:11px; font-weight:700; color:#AABBCC; text-transform:uppercase; letter-spacing:.06em; margin-bottom:8px;">WDB Contribution</div>
+          <div style="font-size:11px; font-weight:700; color:rgba(255,255,255,.72); text-transform:uppercase; letter-spacing:.06em; margin-bottom:8px;">WDB Contribution</div>
           <div id="res-wdb" style="font-size:24px; font-weight:800; color:#fff;">—</div>
-          <div id="res-wdb-label" style="font-size:12px; color:#AABBCC; margin-top:4px;">Your share of training cost</div>
+          <div id="res-wdb-label" style="font-size:12px; color:rgba(255,255,255,.72); margin-top:4px;">Your share of training cost</div>
         </div>
         <div style="background:rgba(255,255,255,.08); border-radius:10px; padding:20px;">
-          <div style="font-size:11px; font-weight:700; color:#AABBCC; text-transform:uppercase; letter-spacing:.06em; margin-bottom:8px;">Employer Contribution</div>
+          <div style="font-size:11px; font-weight:700; color:rgba(255,255,255,.72); text-transform:uppercase; letter-spacing:.06em; margin-bottom:8px;">Employer Contribution</div>
           <div id="res-employer" style="font-size:24px; font-weight:800; color:#fff;">—</div>
-          <div id="res-employer-label" style="font-size:12px; color:#AABBCC; margin-top:4px;">Employer share of training cost</div>
+          <div id="res-employer-label" style="font-size:12px; color:rgba(255,255,255,.72); margin-top:4px;">Employer share of training cost</div>
         </div>
         <div style="background:rgba(255,255,255,.08); border-radius:10px; padding:20px;">
-          <div style="font-size:11px; font-weight:700; color:#AABBCC; text-transform:uppercase; letter-spacing:.06em; margin-bottom:8px;">Est. Workers Served</div>
-          <div id="res-workers" style="font-size:24px; font-weight:800; color:#F5D060;">—</div>
-          <div id="res-workers-label" style="font-size:12px; color:#AABBCC; margin-top:4px;">Based on avg. cost & match</div>
+          <div style="font-size:11px; font-weight:700; color:rgba(255,255,255,.72); text-transform:uppercase; letter-spacing:.06em; margin-bottom:8px;">Est. Workers Served</div>
+          <div id="res-workers" style="font-size:24px; font-weight:800; color:#E27A50;">—</div>
+          <div id="res-workers-label" style="font-size:12px; color:rgba(255,255,255,.72); margin-top:4px;">Based on avg. cost & match</div>
         </div>
       </div>
     </div>
@@ -4074,7 +4172,7 @@ if (document.readyState === 'loading') {
       <div style="overflow-x:auto;">
         <table style="width:100%; border-collapse:collapse; font-size:14px;">
           <thead>
-            <tr style="background:#F0F4F8;">
+            <tr style="background:#EAEEF3;">
               <th style="padding:10px 12px; text-align:left; font-weight:600; color:var(--ink-soft); font-size:12px; text-transform:uppercase;">Employer Name</th>
               <th style="padding:10px 12px; text-align:left; font-weight:600; color:var(--ink-soft); font-size:12px; text-transform:uppercase;">Industry</th>
               <th style="padding:10px 12px; text-align:center; font-weight:600; color:var(--ink-soft); font-size:12px; text-transform:uppercase;"># Workers</th>
@@ -4120,7 +4218,7 @@ if (document.readyState === 'loading') {
     <div style="background:#fff; border:1px solid var(--border); border-radius:14px; padding:32px;">
       <h3 style="font-size:17px; font-weight:700; color:var(--cwa-navy); margin-bottom:8px;">Export your plan</h3>
       <p style="font-size:14px; color:var(--muted); margin-bottom:20px;">Downloads a formatted Excel workbook with your budget summary, cost-match scenarios, and employer planning table — ready to share with leadership or your board.</p>
-      <button onclick="exportToExcel()" style="background:var(--cwa-coral); color:#fff; border:none; border-radius:10px; padding:14px 28px; font-size:15px; font-weight:700; cursor:pointer; display:inline-flex; align-items:center; gap:8px; box-shadow:0 4px 12px rgba(255,92,56,.3); transition:transform .15s, box-shadow .15s;" onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 6px 16px rgba(255,92,56,.4)'" onmouseout="this.style.transform=''; this.style.boxShadow='0 4px 12px rgba(255,92,56,.3)'">
+      <button onclick="exportToExcel()" style="background:var(--cwa-coral); color:#fff; border:none; border-radius:10px; padding:14px 28px; font-size:15px; font-weight:700; cursor:pointer; display:inline-flex; align-items:center; gap:8px; box-shadow:0 4px 12px rgba(226,122,80,.3); transition:transform .15s, box-shadow .15s;" onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 6px 16px rgba(226,122,80,.4)'" onmouseout="this.style.transform=''; this.style.boxShadow='0 4px 12px rgba(226,122,80,.3)'">
         📥 Export to Excel
       </button>
       <span style="font-size:13px; color:var(--muted); margin-left:16px;">Requires Adult and DW allocations to be entered above.</span>
@@ -4179,7 +4277,7 @@ if (document.readyState === 'loading') {
       <div style="overflow-x:auto;">
         <table style="width:100%; border-collapse:collapse; font-size:14px;">
           <thead>
-            <tr style="background:#F0F4F8;">
+            <tr style="background:#EAEEF3;">
               <th style="padding:10px 12px; text-align:left; font-weight:600; color:var(--ink-soft); font-size:12px; text-transform:uppercase;">Funding Stream</th>
               <th style="padding:10px 12px; text-align:center; font-weight:600; color:var(--ink-soft); font-size:12px; text-transform:uppercase;">Allocation ($)</th>
               <th style="padding:10px 12px; text-align:center; font-weight:600; color:var(--ink-soft); font-size:12px; text-transform:uppercase;">Spent to Date ($)</th>
@@ -4200,31 +4298,31 @@ if (document.readyState === 'loading') {
       <h3 style="font-size:17px; font-weight:700; color:#fff; margin-bottom:24px; padding-bottom:12px; border-bottom:2px solid var(--cwa-coral);">Your utilization picture</h3>
       <div style="display:grid; grid-template-columns:repeat(4,1fr); gap:16px;">
         <div style="background:rgba(255,255,255,.08); border-radius:10px; padding:20px;">
-          <div style="font-size:11px; font-weight:700; color:#AABBCC; text-transform:uppercase; letter-spacing:.06em; margin-bottom:8px;">Total Allocation</div>
+          <div style="font-size:11px; font-weight:700; color:rgba(255,255,255,.72); text-transform:uppercase; letter-spacing:.06em; margin-bottom:8px;">Total Allocation</div>
           <div id="bt-total-alloc" style="font-size:26px; font-weight:800; color:#fff;">—</div>
         </div>
         <div style="background:rgba(255,255,255,.08); border-radius:10px; padding:20px;">
-          <div style="font-size:11px; font-weight:700; color:#AABBCC; text-transform:uppercase; letter-spacing:.06em; margin-bottom:8px;">Total Spent</div>
-          <div id="bt-total-spent" style="font-size:26px; font-weight:800; color:#6EE7C7;">—</div>
+          <div style="font-size:11px; font-weight:700; color:rgba(255,255,255,.72); text-transform:uppercase; letter-spacing:.06em; margin-bottom:8px;">Total Spent</div>
+          <div id="bt-total-spent" style="font-size:26px; font-weight:800; color:#E27A50;">—</div>
         </div>
         <div style="background:rgba(255,255,255,.08); border-radius:10px; padding:20px;">
-          <div style="font-size:11px; font-weight:700; color:#AABBCC; text-transform:uppercase; letter-spacing:.06em; margin-bottom:8px;">Overall Utilization</div>
-          <div id="bt-total-util" style="font-size:26px; font-weight:800; color:#F5D060;">—</div>
+          <div style="font-size:11px; font-weight:700; color:rgba(255,255,255,.72); text-transform:uppercase; letter-spacing:.06em; margin-bottom:8px;">Overall Utilization</div>
+          <div id="bt-total-util" style="font-size:26px; font-weight:800; color:#E27A50;">—</div>
         </div>
-        <div id="bt-lapse-card" style="background:rgba(255,92,56,.15); border:1px solid rgba(255,92,56,.3); border-radius:10px; padding:20px;">
-          <div style="font-size:11px; font-weight:700; color:#FF8C72; text-transform:uppercase; letter-spacing:.06em; margin-bottom:8px;">Projected Year-End Lapse</div>
-          <div id="bt-total-lapse" style="font-size:26px; font-weight:800; color:#FF5C38;">—</div>
-          <div id="bt-lapse-note" style="font-size:12px; color:#FF8C72; margin-top:4px;">Funds at risk of going unspent</div>
+        <div id="bt-lapse-card" style="background:rgba(226,122,80,.15); border:1px solid rgba(226,122,80,.3); border-radius:10px; padding:20px;">
+          <div style="font-size:11px; font-weight:700; color:#E27A50; text-transform:uppercase; letter-spacing:.06em; margin-bottom:8px;">Projected Year-End Lapse</div>
+          <div id="bt-total-lapse" style="font-size:26px; font-weight:800; color:#E27A50;">—</div>
+          <div id="bt-lapse-note" style="font-size:12px; color:#E27A50; margin-top:4px;">Funds at risk of going unspent</div>
         </div>
       </div>
-      <p style="font-size:12px; color:#AABBCC; margin-top:16px; line-height:1.5;">Every dollar left unspent is a worker not served. Statewide, $4.8M (24% of RR/LA funding) lapsed in the most recent program year. This tool exists to keep your projected lapse at zero.</p>
+      <p style="font-size:12px; color:rgba(255,255,255,.72); margin-top:16px; line-height:1.5;">Every dollar left unspent is a worker not served. Statewide, $4.8M (24% of RR/LA funding) lapsed in the most recent program year. This tool exists to keep your projected lapse at zero.</p>
     </div>
 
     <!-- ── EXPORT ────────────────────────────────────────────────── -->
     <div style="background:#fff; border:1px solid var(--border); border-radius:14px; padding:32px;">
       <h3 style="font-size:17px; font-weight:700; color:var(--cwa-navy); margin-bottom:8px;">Export your plan</h3>
       <p style="font-size:14px; color:var(--muted); margin-bottom:20px;">Downloads a formatted Excel workbook with your budget dashboard and a lapse-risk summary — ready to share with leadership or your board.</p>
-      <button onclick="btExport()" style="background:var(--cwa-coral); color:#fff; border:none; border-radius:10px; padding:14px 28px; font-size:15px; font-weight:700; cursor:pointer; display:inline-flex; align-items:center; gap:8px; box-shadow:0 4px 12px rgba(255,92,56,.3); transition:transform .15s, box-shadow .15s;" onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 6px 16px rgba(255,92,56,.4)'" onmouseout="this.style.transform=''; this.style.boxShadow='0 4px 12px rgba(255,92,56,.3)'">
+      <button onclick="btExport()" style="background:var(--cwa-coral); color:#fff; border:none; border-radius:10px; padding:14px 28px; font-size:15px; font-weight:700; cursor:pointer; display:inline-flex; align-items:center; gap:8px; box-shadow:0 4px 12px rgba(226,122,80,.3); transition:transform .15s, box-shadow .15s;" onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 6px 16px rgba(226,122,80,.4)'" onmouseout="this.style.transform=''; this.style.boxShadow='0 4px 12px rgba(226,122,80,.3)'">
         📥 Export to Excel
       </button>
       <span style="font-size:13px; color:var(--muted); margin-left:16px;">Enter at least one funding stream with an allocation above.</span>
@@ -4261,7 +4359,7 @@ if (document.readyState === 'loading') {
       <h3>Indicator Groups</h3>
       <table style="width:100%;border-collapse:collapse;font-size:14px;margin:12px 0;">
         <thead>
-          <tr style="background:#F0F4F8;">
+          <tr style="background:#EAEEF3;">
             <th style="padding:8px 12px;border-bottom:1px solid var(--border); text-align:left;">Group</th>
             <th style="padding:8px 12px;border-bottom:1px solid var(--border); text-align:left;">Indicators</th>
             <th style="padding:8px 12px;border-bottom:1px solid var(--border); text-align:left;">Focus</th>
@@ -4523,7 +4621,7 @@ if (document.readyState === 'loading') {
 <p>For each program, record the Board Determination based on the situation above.</p>
 <table style="width:100%;border-collapse:collapse;font-size:14px;margin:12px 0;">
 <thead>
-<tr style="background:#F0F4F8;">
+<tr style="background:#EAEEF3;">
 <th style="padding:8px 12px;border-bottom:1px solid var(--border);text-align:left;">Program</th>
 <th style="padding:8px 12px;border-bottom:1px solid var(--border);text-align:left;">Eligibility Trigger</th>
 <th style="padding:8px 12px;border-bottom:1px solid var(--border);text-align:left;">Board Determination</th>
@@ -4621,7 +4719,7 @@ if (document.readyState === 'loading') {
 <p>The worker counts below are illustrative estimates.</p>
 <table style="width:100%;border-collapse:collapse;font-size:14px;margin:12px 0;">
 <thead>
-<tr style="background:#F0F4F8;">
+<tr style="background:#EAEEF3;">
 <th style="padding:8px 12px;border-bottom:1px solid var(--border);text-align:left;"></th>
 <th style="padding:8px 12px;border-bottom:1px solid var(--border);text-align:left;">Traditional Layoff</th>
 <th style="padding:8px 12px;border-bottom:1px solid var(--border);text-align:left;">Work Sharing</th>
@@ -4691,7 +4789,7 @@ if (document.readyState === 'loading') {
 <h4>Common Employer Questions</h4>
 <table style="width:100%;border-collapse:collapse;font-size:14px;margin:12px 0;">
 <thead>
-<tr style="background:#F0F4F8;">
+<tr style="background:#EAEEF3;">
 <th style="padding:8px 12px;border-bottom:1px solid var(--border);text-align:left;">Question</th>
 <th style="padding:8px 12px;border-bottom:1px solid var(--border);text-align:left;">Answer</th>
 </tr>
@@ -4740,7 +4838,7 @@ if (document.readyState === 'loading') {
 <div class="guide-card">
 <h2 style="margin:0 0 12px;">Cohort Design Principles</h2>
 <table style="width:100%;border-collapse:collapse;font-size:14px;margin:12px 0;">
-<thead><tr style="background:#F0F4F8;"><th style="padding:8px 12px;border-bottom:1px solid var(--border);text-align:left;">Principle</th><th style="padding:8px 12px;border-bottom:1px solid var(--border);text-align:left;">Detail</th></tr></thead>
+<thead><tr style="background:#EAEEF3;"><th style="padding:8px 12px;border-bottom:1px solid var(--border);text-align:left;">Principle</th><th style="padding:8px 12px;border-bottom:1px solid var(--border);text-align:left;">Detail</th></tr></thead>
 <tbody>
 <tr><td style="padding:8px 12px;border-bottom:1px solid var(--border);font-weight:700;">Keep it small</td><td style="padding:8px 12px;border-bottom:1px solid var(--border);">8–15 employers per cohort. Large groups reduce trust and candid sharing.</td></tr>
 <tr><td style="padding:8px 12px;border-bottom:1px solid var(--border);font-weight:700;">Sector-specific</td><td style="padding:8px 12px;border-bottom:1px solid var(--border);">Group employers from the same industry. Sector peers share language, challenges, and competitive context.</td></tr>
@@ -4757,7 +4855,7 @@ if (document.readyState === 'loading') {
 <p style="margin:0 0 6px;font-size:13px;color:var(--cwa-navy);">The canonical agenda. Cohort size varies by source — design principles recommend <strong>8–15</strong>; the invitation letter and slide deck use <strong>[N]</strong>. Timings and facilitator notes below are the running order for every session.</p>
 <div class="guide-callout" style="margin:0 0 12px;">Confidentiality note: state at the top of every session that what's shared in the room stays in the room. Employers will not share real challenges in an open setting.</div>
 <table style="width:100%;border-collapse:collapse;font-size:14px;margin:12px 0;">
-<thead><tr style="background:#F0F4F8;"><th style="padding:8px 12px;border-bottom:1px solid var(--border);text-align:left;">Time</th><th style="padding:8px 12px;border-bottom:1px solid var(--border);text-align:left;">Activity</th><th style="padding:8px 12px;border-bottom:1px solid var(--border);text-align:left;">Facilitator Notes</th></tr></thead>
+<thead><tr style="background:#EAEEF3;"><th style="padding:8px 12px;border-bottom:1px solid var(--border);text-align:left;">Time</th><th style="padding:8px 12px;border-bottom:1px solid var(--border);text-align:left;">Activity</th><th style="padding:8px 12px;border-bottom:1px solid var(--border);text-align:left;">Facilitator Notes</th></tr></thead>
 <tbody>
 <tr><td style="padding:8px 12px;border-bottom:1px solid var(--border);font-weight:700;">0:00–0:10</td><td style="padding:8px 12px;border-bottom:1px solid var(--border);">Welcome &amp; check-in</td><td style="padding:8px 12px;border-bottom:1px solid var(--border);">Go around the room: name, company, 'one thing keeping you up at night.' Sets the tone and reveals emerging issues.</td></tr>
 <tr><td style="padding:8px 12px;border-bottom:1px solid var(--border);font-weight:700;">0:10–0:20</td><td style="padding:8px 12px;border-bottom:1px solid var(--border);">Employer spotlight (peer)</td><td style="padding:8px 12px;border-bottom:1px solid var(--border);">Invited employer shares a 10-min story: the challenge, what they did, what happened. Unscripted is better.</td></tr>
@@ -4804,7 +4902,7 @@ if (document.readyState === 'loading') {
 <div class="guide-card">
 <h2 style="margin:0 0 12px;">When Employers Hesitate: Common Objections</h2>
 <table style="width:100%;border-collapse:collapse;font-size:14px;margin:12px 0;">
-<thead><tr style="background:#F0F4F8;"><th style="padding:8px 12px;border-bottom:1px solid var(--border);text-align:left;">Employer Objection</th><th style="padding:8px 12px;border-bottom:1px solid var(--border);text-align:left;">Suggested Response</th></tr></thead>
+<thead><tr style="background:#EAEEF3;"><th style="padding:8px 12px;border-bottom:1px solid var(--border);text-align:left;">Employer Objection</th><th style="padding:8px 12px;border-bottom:1px solid var(--border);text-align:left;">Suggested Response</th></tr></thead>
 <tbody>
 <tr><td style="padding:8px 12px;border-bottom:1px solid var(--border);font-weight:700;">'We're fine right now.'</td><td style="padding:8px 12px;border-bottom:1px solid var(--border);">'That's actually the best time to learn about these programs — so you have a plan ready if things change. It takes 30 days to get a Work Sharing plan approved.'</td></tr>
 <tr><td style="padding:8px 12px;border-bottom:1px solid var(--border);font-weight:700;">'This sounds complicated.'</td><td style="padding:8px 12px;border-bottom:1px solid var(--border);">'It can be — but that's what we're here for. We'll walk you through every step. Your HR team can handle this in about 4 hours total.'</td></tr>
@@ -6147,10 +6245,10 @@ if (document.readyState === 'loading') {
     const val = document.getElementById('bt-total-lapse');
     if (tAlloc && tLapse <= 0) {
       card.style.background = 'rgba(110,231,199,.15)'; card.style.borderColor = 'rgba(110,231,199,.3)';
-      val.style.color = '#6EE7C7'; note.textContent = 'On pace to fully spend down'; note.style.color = '#6EE7C7';
+      val.style.color = '#E27A50'; note.textContent = 'On pace to fully spend down'; note.style.color = '#E27A50';
     } else {
-      card.style.background = 'rgba(255,92,56,.15)'; card.style.borderColor = 'rgba(255,92,56,.3)';
-      val.style.color = '#FF5C38'; note.textContent = 'Funds at risk of going unspent'; note.style.color = '#FF8C72';
+      card.style.background = 'rgba(226,122,80,.15)'; card.style.borderColor = 'rgba(226,122,80,.3)';
+      val.style.color = '#E27A50'; note.textContent = 'Funds at risk of going unspent'; note.style.color = '#E27A50';
     }
   }
   function btExport() {
